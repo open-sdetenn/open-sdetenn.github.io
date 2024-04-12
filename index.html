@@ -1,2 +1,56 @@
-open-sdetenn.github.io
- 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open-SDETENN Demos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #b3b3b3;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            text-align: center;
+        }
+        button {
+            position: relative;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin: 10px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        button:hover::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 5px;
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            white-space: nowrap;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Open-SDETENN Demos</h1>
+        <button onclick="window.location.href='/v1_demo'" data-tooltip="MODEL V1 is the first iteration of our RNN-based model.">Model V1</button>
+        <button onclick="window.location.href='/idm_v1_demo'" data-tooltip="IDM V1 is the first iteration of our ResNet-based model for predicting angles from footage.">IDM V1</button>
+    </div>
+</body>
+</html>
