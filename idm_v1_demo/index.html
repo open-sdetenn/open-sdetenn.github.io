@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open-SDETENN MODEL V1</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #b3b3b3;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1, h2 {
+            text-align: center;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 40px;
+            display: none;
+        }
+        video {
+            width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+        figcaption {
+            text-align: center;
+            font-style: italic;
+            color: #666;
+            margin-top: 10px;
+        }
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Open-SDETENN IDM v1 Showcase</h1>
+        <h2>IDM v1 Demo Videos:</h2>
+        <ul>
+            <li>
+                <figure>
+                    <video controls>
+                        <source src="https://github.com/open-sdetenn/demos/raw/main/IDM_DEMO1.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <figcaption>IDM handling rather straight road. Due to the nature of this, it's not the most accurate. These are single-pass inferences.</figcaption>
+                </figure>
+            </li>
+            <li>
+                <figure>
+                    <video controls>
+                        <source src="https://github.com/open-sdetenn/demos/raw/main/IDM_DEMO2.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <figcaption>The dirt road example, but with the IDM data over it. As you can see, it gets the pedals rather accurate, but the rotation is where the model lacks. Hopefully implementing more guards and a better context feeding system will help this.</figcaption>
+                </figure>
+            </li>
+            <li>
+                <figure>
+                    <video controls>
+                        <source src="https://github.com/open-sdetenn/demos/raw/main/IDM_DEMO3.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <figcaption>Fast driving. Inconsistent, but you can see it recognise the suspension and adjust the L2 value to signify braking.</figcaption>
+                </figure>
+            </li>
+        </ul>
+        <div class="button-container">
+            <button onclick="previousDemo()">Previous</button>
+            <button onclick="nextDemo()">Next</button>
+        </div>
+        <p>This is the Inverse Dynamics Model used and written about. Heavily inspired by the VPT paper, this is a recreation of it with efficiency in mind. Development of the architecture was primarily led by Mikus, with assist from Alex and Krystian. This demo may be slow on worse internet connections, but you may try use the /demo repository in our organization.</p>
+    </div>
+
+    <script>
+        let currentIndex = 0;
+        const demos = document.querySelectorAll('li');
+
+        function showDemo(index) {
+            demos.forEach((demo, i) => {
+                if (i === index) {
+                    demo.style.display = 'block';
+                    const video = demo.querySelector('video');
+                    if (!video.paused) {
+                        video.pause();
+                    }
+                } else {
+                    demo.style.display = 'none';
+                }
+            });
+        }
+
+        function previousDemo() {
+            currentIndex = (currentIndex - 1 + demos.length) % demos.length;
+            showDemo(currentIndex);
+        }
+
+        function nextDemo() {
+            currentIndex = (currentIndex + 1) % demos.length;
+            showDemo(currentIndex);
+        }
+
+        showDemo(currentIndex);
+    </script>
+</body>
+</html>
