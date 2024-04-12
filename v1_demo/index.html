@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open-SDETENN MODEL V1</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #b3b3b3;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1, h2 {
+            text-align: center;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 40px;
+            display: none;
+        }
+        video {
+            width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+        figcaption {
+            text-align: center;
+            font-style: italic;
+            color: #666;
+            margin-top: 10px;
+        }
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Open-SDETENN (v1) Model Showcase</h1>
+        <h2>v1 Model Demo Videos:</h2>
+        <ul>
+            <li>
+                <figure>
+                    <video controls>
+                        <source src="https://github.com/open-sdetenn/demos/raw/main/Positioning%20and%20situation%20handling.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <figcaption>Positioning and Situation Handling - Base model, positioning under a tunnel.</figcaption>
+                </figure>
+            </li>
+            <li>
+                <figure>
+                    <video controls>
+                        <source src="https://github.com/open-sdetenn/demos/raw/main/Steering%20and%20Self-Control.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <figcaption>Steering and Self-Control - Steering showcase (rather slow, yes, but it is a dirt road, which wasn't common in the dataset)</figcaption>
+                </figure>
+            </li>
+            <li>
+                <figure>
+                    <video controls>
+                        <source src="https://raw.githubusercontent.com/open-sdetenn/demos/main/Aggresive%20Finetune%20(high%20speed).mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <figcaption>Aggressive Finetune (high speed) - Trained on aggressive driving, dataset by Alex and Krystian</figcaption>
+                </figure>
+            </li>
+        </ul>
+        <div class="button-container">
+            <button onclick="previousDemo()">Previous</button>
+            <button onclick="nextDemo()">Next</button>
+        </div>
+        <p>This architecture is based off a RNN, which helps predict movement for the next frame. Development of the architecture was primarily led by Mikus, with assist from Alex and Krystian. This demo may be slow on worse internet connections, but you may try use the /demo repository in our organization.</p>
+    </div>
+
+    <script>
+        let currentIndex = 0;
+        const demos = document.querySelectorAll('li');
+
+        function showDemo(index) {
+            demos.forEach((demo, i) => {
+                if (i === index) {
+                    demo.style.display = 'block';
+                    const video = demo.querySelector('video');
+                    if (!video.paused) {
+                        video.pause();
+                    }
+                } else {
+                    demo.style.display = 'none';
+                }
+            });
+        }
+
+        function previousDemo() {
+            currentIndex = (currentIndex - 1 + demos.length) % demos.length;
+            showDemo(currentIndex);
+        }
+
+        function nextDemo() {
+            currentIndex = (currentIndex + 1) % demos.length;
+            showDemo(currentIndex);
+        }
+
+        showDemo(currentIndex);
+    </script>
+</body>
+</html>
